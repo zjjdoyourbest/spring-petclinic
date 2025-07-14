@@ -24,6 +24,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 /**
  * Repository class for <code>PetType</code> domain objects.
@@ -37,7 +38,10 @@ public interface PetTypeRepository extends JpaRepository<PetType, Integer> {
 	 * Retrieve all {@link PetType}s from the data store.
 	 * @return a Collection of {@link PetType}s.
 	 */
-	@Query("SELECT ptype FROM PetType ptype ORDER BY ptype.name")
+	@Query("SELECT ptype FROM PetType ptype ORDER BY ptype.type_id")
 	List<PetType> findPetTypes();
+
+	@Query("SELECT ptype FROM PetType ptype WHERE ptype.type=?1 ORDER BY ptype.type_id")
+	List<PetType> findPetTypesbyType(@Param("type") String type);
 
 }

@@ -57,7 +57,12 @@ class PetController {
 
 	@ModelAttribute("types")
 	public Collection<PetType> populatePetTypes() {
-		return this.types.findPetTypes();
+		return this.types.findPetTypesbyType("type");
+	}
+
+	@ModelAttribute("sex")
+	public Collection<PetType> populatePetSexs() {
+		return this.types.findPetTypesbyType("sex");
 	}
 
 	@ModelAttribute("owner")
@@ -166,6 +171,7 @@ class PetController {
 			existingPet.setName(pet.getName());
 			existingPet.setBirthDate(pet.getBirthDate());
 			existingPet.setType(pet.getType());
+			existingPet.setSex(pet.getSex());
 		}
 		else {
 			owner.addPet(pet);

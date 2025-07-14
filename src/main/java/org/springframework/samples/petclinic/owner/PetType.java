@@ -15,6 +15,8 @@
  */
 package org.springframework.samples.petclinic.owner;
 
+import jakarta.persistence.Column;
+import jakarta.validation.constraints.NotBlank;
 import org.springframework.samples.petclinic.model.NamedEntity;
 
 import jakarta.persistence.Entity;
@@ -27,4 +29,36 @@ import jakarta.persistence.Table;
 @Table(name = "types")
 public class PetType extends NamedEntity {
 
+	@Column(name = "type")
+	@NotBlank
+	private String type;
+
+	@Column(name = "type_id")
+	private int type_id;
+
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public int getType_id() {
+		return type_id;
+	}
+
+	public void setType_id(int type_id) {
+		this.type_id = type_id;
+	}
+
+	@Override
+	public String toString() {
+		return "PetType{" +
+			"name='" + this.getName() + '\'' +
+			"type_id='" + type_id + '\'' +
+			"type='" + type + '\'' +
+			'}';
+	}
 }

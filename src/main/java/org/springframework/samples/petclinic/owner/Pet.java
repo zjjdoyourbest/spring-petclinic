@@ -49,9 +49,11 @@ public class Pet extends NamedEntity {
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate birthDate;
 
-	@ManyToOne
-	@JoinColumn(name = "type_id")
-	private PetType type;
+	@Column(name = "type_id")
+	private int type;
+
+	@Column(name = "sex_id")
+	private int sex;
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "pet_id")
@@ -66,12 +68,20 @@ public class Pet extends NamedEntity {
 		return this.birthDate;
 	}
 
-	public PetType getType() {
-		return this.type;
+	public int getType() {
+		return type;
 	}
 
-	public void setType(PetType type) {
+	public void setType(int type) {
 		this.type = type;
+	}
+
+	public int getSex() {
+		return sex;
+	}
+
+	public void setSex(int sex) {
+		this.sex = sex;
 	}
 
 	public Collection<Visit> getVisits() {
