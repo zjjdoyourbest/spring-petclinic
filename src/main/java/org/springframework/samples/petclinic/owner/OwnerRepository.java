@@ -21,6 +21,7 @@ import java.util.Optional;
 import jakarta.annotation.Nonnull;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -61,5 +62,9 @@ public interface OwnerRepository extends JpaRepository<Owner, Integer> {
 	 * input for id)
 	 */
 	Optional<Owner> findById(@Nonnull Integer id);
+
+	@EntityGraph(attributePaths = {"pets", "pets.visits"})
+	@Query("SELECT o FROM Owner o")
+	List<Owner> findAllVisits();
 
 }
