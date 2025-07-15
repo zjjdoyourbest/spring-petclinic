@@ -15,8 +15,7 @@
  */
 package org.springframework.samples.petclinic.owner;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -49,9 +48,11 @@ class OwnerController {
 	private static final String VIEWS_OWNER_CREATE_OR_UPDATE_FORM = "owners/createOrUpdateOwnerForm";
 
 	private final OwnerRepository owners;
+	private final PetTypeRepository types;
 
-	public OwnerController(OwnerRepository owners) {
+	public OwnerController(OwnerRepository owners,PetTypeRepository types) {
 		this.owners = owners;
+		this.types=types;
 	}
 
 	@InitBinder
@@ -166,6 +167,12 @@ class OwnerController {
 		Optional<Owner> optionalOwner = this.owners.findById(ownerId);
 		Owner owner = optionalOwner.orElseThrow(() -> new IllegalArgumentException(
 				"Owner not found with id: " + ownerId + ". Please ensure the ID is correct "));
+
+		owner.getPets().forEach( pet -> {
+				pet.setSex_name(types.findPetTypesbyTypeId("sex",pet.getSex()).getName());
+				pet.setType_name(types.findPetTypesbyTypeId("type",pet.getType()).getName());
+			}
+		);
 		mav.addObject(owner);
 		return mav;
 	}

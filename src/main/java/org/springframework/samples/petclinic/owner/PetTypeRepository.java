@@ -44,4 +44,7 @@ public interface PetTypeRepository extends JpaRepository<PetType, Integer> {
 	@Query("SELECT ptype FROM PetType ptype WHERE ptype.type=?1 ORDER BY ptype.type_id")
 	List<PetType> findPetTypesbyType(@Param("type") String type);
 
+	@Query("SELECT ptype FROM PetType ptype WHERE ptype.type=?1 and ptype.type_id=?2 ORDER BY ptype.type_id")
+	PetType findPetTypesbyTypeId(@Param("type") String type,@Param("type_id") int type_id);
+
 }

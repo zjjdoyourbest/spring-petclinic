@@ -20,18 +20,9 @@ import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+import jakarta.persistence.*;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.samples.petclinic.model.NamedEntity;
-
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.OrderBy;
-import jakarta.persistence.Table;
 
 /**
  * Simple business object representing a pet.
@@ -54,6 +45,11 @@ public class Pet extends NamedEntity {
 
 	@Column(name = "sex_id")
 	private int sex;
+
+	@Transient
+	private String sex_name;
+	@Transient
+	private String type_name;
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "pet_id")
@@ -82,6 +78,22 @@ public class Pet extends NamedEntity {
 
 	public void setSex(int sex) {
 		this.sex = sex;
+	}
+
+	public String getSex_name() {
+		return sex_name;
+	}
+
+	public void setSex_name(String sex_name) {
+		this.sex_name = sex_name;
+	}
+
+	public String getType_name() {
+		return type_name;
+	}
+
+	public void setType_name(String type_name) {
+		this.type_name = type_name;
 	}
 
 	public Collection<Visit> getVisits() {

@@ -84,7 +84,12 @@ class PetController {
 		Optional<Owner> optionalOwner = this.owners.findById(ownerId);
 		Owner owner = optionalOwner.orElseThrow(() -> new IllegalArgumentException(
 				"Owner not found with id: " + ownerId + ". Please ensure the ID is correct "));
-		return owner.getPet(petId);
+
+		Pet pet=owner.getPet(petId);
+		pet.setSex_name(types.findPetTypesbyTypeId("sex",pet.getSex()).getName());
+		pet.setType_name(types.findPetTypesbyTypeId("type",pet.getType()).getName());
+
+		return pet;
 	}
 
 	@InitBinder("owner")
