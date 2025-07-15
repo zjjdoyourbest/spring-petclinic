@@ -32,7 +32,7 @@ public class CalendarApiController {
 				pet.getVisits().forEach(visit -> {
 					events.add(Map.of(
 						"title", owner.getFirstName()+" "+owner.getLastName(),
-						"start", visit.getDate(),
+						"start", visit.getDate()+"T"+visit.getTime(),
 						"color", "#f66"
 					));
 				});
